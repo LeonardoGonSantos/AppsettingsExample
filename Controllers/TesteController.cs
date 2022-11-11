@@ -22,25 +22,41 @@ namespace WebApplication1.Controllers
             _getValueGetSection = getValueGetSection;
         }
 
-        [HttpGet(Name = "GetSettingsSingleton")]
+        [HttpGet]
+        [Route("GetSettingsSingleton")]
         public IActionResult GetSettingsSingleton()
         {
-            var tempo = new Stopwatch();tempo.Start(); 
-            return Ok(new { tempo = tempo.ElapsedMilliseconds, result = _getValueSingleton.GetValue() }   );
-        }       
-        
-        [HttpGet(Name = "GetSettingsIOptions")]
+            var tempo = new Stopwatch();
+
+            tempo.Start();
+
+            var result = _getValueSingleton.GetValue();
+
+            tempo.Stop();
+
+            return Ok(new { tempo = tempo.Elapsed, result = result });
+        }
+
+        [HttpGet]
+        [Route("GetSettingsIOptions")]
         public IActionResult GetSettingIOptions()
         {
-            var tempo = new Stopwatch(); tempo.Start();
-            return Ok(new { tempo = tempo.ElapsedMilliseconds, result = _getValueIOptions.GetValue() });
+            var tempo = new Stopwatch();
+            tempo.Start();
+            var result = _getValueIOptions.GetValue();
+            tempo.Stop();
+            return Ok(new { tempo = tempo.Elapsed, result = result });
         }      
         
-        [HttpGet(Name = "GetSettingsGetSection")]
+        [HttpGet]
+        [Route("GetSettingsGetSection")]
         public IActionResult GetSettingsGetSection()
         {
-            var tempo = new Stopwatch(); tempo.Start();
-            return Ok(new { tempo = tempo.ElapsedMilliseconds, result = _getValueGetSection.GetValue() });
+            var tempo = new Stopwatch(); 
+            tempo.Start();
+            var result = _getValueGetSection.GetValue();
+            tempo.Stop();
+            return Ok(new { tempo = tempo.Elapsed, result = result });
         }
     }
 }
