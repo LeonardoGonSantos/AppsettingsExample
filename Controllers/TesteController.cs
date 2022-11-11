@@ -1,11 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 using WebApplication1.App.GetValueGetSection;
 using WebApplication1.App.GetValueSingleton;
 
 namespace WebApplication1.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("testeController")]
     public class TesteController : ControllerBase
     {
         private readonly ILogger<TesteController> _logger;
@@ -24,20 +25,22 @@ namespace WebApplication1.Controllers
         [HttpGet(Name = "GetSettingsSingleton")]
         public IActionResult GetSettingsSingleton()
         {
-            return Ok(_getValueSingleton.GetValue());
+            var tempo = new Stopwatch();tempo.Start(); 
+            return Ok(new { tempo = tempo.ElapsedMilliseconds, result = _getValueSingleton.GetValue() }   );
         }       
         
         [HttpGet(Name = "GetSettingsIOptions")]
         public IActionResult GetSettingIOptions()
         {
-            return Ok(_getValueIOptions.GetValue());
+            var tempo = new Stopwatch(); tempo.Start();
+            return Ok(new { tempo = tempo.ElapsedMilliseconds, result = _getValueIOptions.GetValue() });
         }      
         
         [HttpGet(Name = "GetSettingsGetSection")]
         public IActionResult GetSettingsGetSection()
         {
-            return Ok(_getValueGetSection.GetValue());
-
+            var tempo = new Stopwatch(); tempo.Start();
+            return Ok(new { tempo = tempo.ElapsedMilliseconds, result = _getValueGetSection.GetValue() });
         }
     }
 }
